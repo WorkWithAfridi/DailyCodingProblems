@@ -1,0 +1,58 @@
+Question: 
+Good morning! Here's your coding interview problem for today.
+
+This problem was asked by Twitter.
+
+A permutation can be specified by an array P, where P[i] represents the location of the element at i in the permutation. 
+For example, [2, 1, 0] represents the permutation where elements at the index 0 and 2 are swapped.
+
+Given an array and a permutation, apply the permutation to the array. 
+For example, given the array ["a", "b", "c"] and the permutation [2, 1, 0], return ["c", "b", "a"].
+
+Amswer:
+
+package com.dailyCodingProblems;
+
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int array_len;
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter Array/Permutation size: "); array_len=scan.nextInt();
+        char[] array=new char[array_len];
+        int[] array_per=new int[array_len];
+        for(int i=0; i<array_len;i++){
+            System.out.print("Entering value for array index "+i+":");
+            array[i]=scan.next().charAt(0);
+        }
+        for(int i=0; i<array_len; i++){
+            System.out.print("Entering value for permutation index "+i+":");
+            array_per[i]=scan.nextInt();
+        }
+        System.out.print("Showing array index in order:");
+        for(char x : array){
+            System.out.print(x+" ");
+        }
+        System.out.println(" ");
+        System.out.print("Showing permutation index in order:");
+        for(int x : array_per){
+            System.out.print(x+" ");
+        }
+        System.out.println("\n Applying permutation...");
+        char[] new_array=new char[array_len];
+        for(int i=0; i<array_len; i++){
+            int x = array_per[i];
+            new_array[i]=array[x];
+        }
+        for(int i=0; i<array_len; i++){
+            array[i]=new_array[i];
+        }
+        System.out.print("Showing array after permutation: ");
+        for(char x:array ){
+            System.out.print(x+" ");
+        }
+    }
+}

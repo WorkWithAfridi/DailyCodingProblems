@@ -1,0 +1,41 @@
+Question:
+
+Given a multiset of integers, return whether it can be partitioned into two subsets whose sums are the same.
+
+For example, given the multiset {15, 5, 20, 10, 35, 15, 10}, it would return true, since we can split it up into {15, 5, 10, 15, 10} and {20, 35}, which both add up to 55.
+
+Given the multiset {15, 5, 20, 10, 35}, it would return false, since we can't split it up into two subsets that add up to the same sum.
+
+Answer:
+
+
+public class Main {
+    public static boolean isSubsetSum(int []array, int size, int sum){
+        if(sum==0) return true;
+        if(size==0 && sum!=0) return false;
+        if(array[size-1]>sum){
+            return isSubsetSum(array,size-1,sum);
+        }
+        return isSubsetSum(array, size-1, sum)  || isSubsetSum(array, size-1, sum-array[size-1]);
+    }
+    public static boolean findPartition(int []array, int size){
+        int sum=0;
+        for(int x:array){
+            sum+=x;
+        }
+        if(sum%2==0){
+            return isSubsetSum(array, size, sum/2);
+        }else{
+            return false;
+        }
+    }
+    public static void main(String[] args) {
+        int [] array={3,1,5,9,12};
+        int size= array.length;
+        if(findPartition(array,size)==true){
+            System.out.println("Can be divided into 2 subsets of equal sum.");
+        }else{
+            System.out.println("Cannot be divided into 2 subsets of equal sum.");
+        }
+    }
+}

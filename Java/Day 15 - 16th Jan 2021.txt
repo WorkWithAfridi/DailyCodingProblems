@@ -1,0 +1,44 @@
+Question: 
+
+Given a stream of elements too large to store in memory, pick a random element from the stream with uniform probability.
+
+Answer:
+
+package Main;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+class Main{
+    static int res=0;
+    static int count=0;
+    static int selectRandom(int x){
+        count++;
+        if(count==1) res =x;
+        else{
+            Random rand = new Random();
+            int i=rand.nextInt(count);
+            if(i==count -1) res =x;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> stream = new ArrayList<>();
+        stream.add(1);
+        stream.add(2);
+        stream.add(3);
+        stream.add(4);
+        stream.add(5);
+        stream.add(6);
+        stream.add(7);
+        stream.add(8);
+        stream.add(9);
+        stream.add(10);
+        int size = stream.size();
+        for(int i=0; i<size; i++){
+            System.out.println("Random number from first "+(i+1)+
+                    " number is "+ selectRandom(stream.get(i)));
+        }
+    }
+}

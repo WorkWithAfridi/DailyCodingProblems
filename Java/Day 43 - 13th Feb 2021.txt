@@ -1,0 +1,59 @@
+Question:
+
+Implement a stack that has the following methods:
+
+push(val), which pushes an element onto the stack
+pop(), which pops off and returns the topmost element of the stack. If there are no elements in the stack, then it should throw an error or return null.
+max(), which returns the maximum value in the stack currently. If there are no elements in the stack, then it should throw an error or return null.
+Each method should run in constant time.
+
+Answer:
+
+
+package Main;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Stackk {
+    List<Integer> list = new ArrayList<>();
+    public void push(int item){
+        list.add(item);
+    }
+    public int pop(){
+        int firstItem=list.get(0);
+        list.remove(0);
+        return firstItem;
+    }
+    public String max(){
+        int max=0;
+        if(list.size()==0){
+            return "null";
+        }else{
+            for(int i: list){
+                if(max<i) max=i;
+            }
+        }
+        return String.valueOf(max);
+    }
+}
+
+
+
+package Main;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Stackk stack = new Stackk();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(23);
+        stack.push(4);
+        stack.push(5);
+        stack.push(6);
+        System.out.println(stack.pop());
+        System.out.println(stack.max());
+    }
+}

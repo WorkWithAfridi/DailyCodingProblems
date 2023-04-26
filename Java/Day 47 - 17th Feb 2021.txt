@@ -1,0 +1,41 @@
+Question:
+
+Given a array of numbers representing the stock prices of a company in chronological order, write a function that calculates the maximum profit you could have made from buying and selling that stock once. You must buy before you can sell it.
+
+For example, given [9, 11, 8, 5, 7, 10], you should return 5, since you could buy the stock at 5 dollars and sell it at 10 dollars.
+
+Answer:
+
+package Main;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int [] array ={9,11,8,5,7,10};
+        System.out.println("Array Size: "+array.length);
+        int max=0, len=array.length;
+        if(len==0){
+            System.out.println("Array is empty.");
+            return;
+        }
+        for(int i=0; i<len; i++){
+            int current=array[i];
+            for(int j=i; j<len; j++){
+                int currentMax=array[j]-current;
+                if(currentMax>max) {
+                    max=currentMax;
+                    System.out.println("Max: "+max+", i: "+array[i]+", j: "+array[j]);
+                }
+            }
+        }
+        if(max==0){
+            System.out.println("No Profit. :(");
+        }else{
+            System.out.println("If sold properly, maximum profit: "+max);
+        }
+    }
+}

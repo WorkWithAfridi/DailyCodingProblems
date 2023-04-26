@@ -1,0 +1,91 @@
+Question: 
+
+You are given an M by N matrix consisting of booleans that represents a board. Each True boolean represents a wall. 
+Each False boolean represents a tile you can walk on.
+
+Given this matrix, a start coordinate, and an end coordinate, return the minimum number of steps required to reach the end coordinate from the start. 
+If there is no possible path, then return null. You can move up, left, down, and right. You cannot move through walls. 
+You cannot wrap around the edges of the board.
+
+For example, given the following board:
+
+[[f, f, f, f],
+[t, t, f, t],
+[f, f, f, f],
+[f, f, f, f]]
+and start = (3, 0) (bottom left) and end = (0, 0) (top left), the minimum number of steps required to reach the end is 7, 
+since we would need to go through (1, 2) because there is a wall everywhere else on the second row.
+
+Answer:
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+    static int ROW=9;
+    static int COL=10;
+    static class Point{
+        int x; int y;
+        public Point(int x, int y){
+            this.x=x;
+            this.y=y;
+        }
+    };
+    static class queueNode{
+        Point pt;
+        int dist;
+        public queueNode(Point pt, int dist){
+            this.pt=pt;
+            this.dist=dist;
+        }
+    };
+    static boolean isValid(int row, int col){
+        return(row>=0)&&(row<ROW)&&(col>=0)&&(col<COL);
+    }
+    static int rowNum[]={-1,0,0,1};
+    static int colNum[]={0,-1,1,0};
+    static int BFS(int mat[][],Point src, Point dest){
+        if(mat[src.x][src.y]!=1 || mat[dest.x][dest.y]!=1) return -1;
+        boolean[][]visited=new boolean[ROW][COL];
+        visited[src.x][src.y]=true;
+        Queue<queueNode> q=new LinkedList<>();
+        queueNode s = new queueNode(src,0);
+        while(!q.isEmpty()){
+            queueNode curr =q.peek();
+            Point pt = curr.pt;
+            if(pt.x==dest.x && pt.y== dest.y) return curr.dist;
+            q.remove();
+            for(int i=0; i<4; i++){
+                int row=pt.x+rowNum[i];
+                int col=pt.y+colNum[i];
+                if(isValid(row,col)&&mat[row][col]==1&&!visited[row][col]){
+                    visited[row][col]=true;
+                    queueNode Adjcell=new queueNode(new Point(row,col),curr.dist+1);
+                    q.add(Adjcell);
+                }
+            }
+        }
+        return -1;
+    }
+    public static void main(String[] args) {
+        int mat[][]={{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+                { 1, 0, 1, 0, 1, 1, 1, 0, 1, 1 },
+                { 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+                { 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 },
+                { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
+                { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
+                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+                { 1, 1, 0, 0, 0, 0, 1, 0, 0, 1 }};
+        Point source = new Point(0,0);
+        Point dest=new Point(3,4);
+        int dist=BFS(mat, source, dest);
+        if(dist!=-1){
+            System.out.println("Shortest Path is "+dist);
+        }else{
+            System.out.println("Shortest Path doesnt exists.");
+        }
+    }
+}

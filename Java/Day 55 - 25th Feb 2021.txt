@@ -1,0 +1,101 @@
+Question:
+
+Implement a URL shortener with the following methods:
+
+shorten(url), which shortens the url into a six-character alphanumeric string, such as zLg6wl.
+restore(short), which expands the shortened string into the original url. If no such shortened string exists, return null.
+Hint: What if we enter the same URL twice?
+
+Answer:
+
+package com.dailyCodingProblems;
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+        UrlShortner CutUrl = new UrlShortner();
+        String shortenedUrl = CutUrl.shorten("https://www.facebook.com/CallMeKyo7o/");
+        System.out.println(shortenedUrl);
+        System.out.println(CutUrl.restore(shortenedUrl));
+        String shortenedUrl2 = CutUrl.shorten("open.spotify.com");
+        System.out.println(shortenedUrl2);
+        System.out.println(CutUrl.restore(shortenedUrl2));
+
+        String shortenedUrl3 = CutUrl.shorten("https://www.facebook.com/CallMeKyo7o/");
+        System.out.println(shortenedUrl3);
+    }
+}
+
+
+--------------------------------------------------------------
+package com.dailyCodingProblems;
+
+import java.util.*;
+
+public class UrlShortner {
+    private String url;
+    private String shorturl;
+    private HashMap<String, String> database = new HashMap<>();
+    public String shorten(String url){
+        setUrl(url);
+        return getShortUrl();
+    }
+    public String restore(String u){
+        if(database.isEmpty()) return "Database is Empty.";
+        if(database.containsKey(u)){
+            Set set = (Set) database.entrySet();
+            Iterator iterator = set.iterator();
+            while(iterator.hasNext()){
+                Map.Entry mapEntry = (Map.Entry) iterator.next();
+                String keyValue = (String) mapEntry.getKey();
+                String value = (String) mapEntry.getValue();
+                if(keyValue.equals(u)){
+                    return value;
+                }
+            }
+        }
+        return "null";
+    }
+    public void setUrl(String url){
+        this.url=url;
+    }
+    public void makeUrlShort(){
+        String shortUrl = new String();
+        for(int i=0; i<6; i++){
+            Random rand = new Random();
+            int number = rand.nextInt(3);
+            if(number == 0){
+                String alphabet="ABCDEFGHIJKLMNOPURSTUVWXYZ";
+                char letter = alphabet.charAt(rand.nextInt(alphabet.length()));
+                shortUrl+=letter;
+            }
+            if(number == 1){
+                String alphabet="abcdefghijklmnopqrstuvwxyz";
+                char letter = alphabet.charAt(rand.nextInt(alphabet.length()));
+                shortUrl+=letter;
+            }
+            if(number == 2){
+                String Numbers = "0123456789";
+                char letter = Numbers.charAt(rand.nextInt(Numbers.length()));
+                shortUrl+=letter;
+            }
+        }
+        this.shorturl=shortUrl;
+        if(database.isEmpty()) {
+            database.put(shorturl,url);
+        }
+        if(database.containsKey(shorturl)) getShortUrl();
+        else{
+            database.put(shorturl,url);
+        }
+    }
+    public String getShortUrl(){
+        if(database.containsValue(url)){
+            return "Database already has the url shortened before.";
+        }
+        makeUrlShort();
+        return shorturl;
+    }
+}

@@ -1,0 +1,44 @@
+Question:
+
+Given an array of strictly the characters 'R', 'G', and 'B', segregate the values of the array so that all the Rs come first, the Gs come second, 
+and the Bs come last. You can only swap elements of the array.
+
+Do this in linear time and in-place.
+
+For example, given the array ['G', 'B', 'R', 'R', 'B', 'R', 'G'], it should become ['R', 'R', 'R', 'G', 'G', 'B', 'B'].
+
+Answer:
+
+package com.dailyCodingProblems;
+public class Main {
+
+    public static void main(String[] args) {
+        char[] array = {'G', 'B', 'R', 'R', 'B', 'R', 'G'};
+        int len=array.length;
+        int r=0;
+        int g=0;
+        int b=0;
+        System.out.print("Array before sorting: ");
+        System.out.print(array);
+        System.out.println("\n Array Length: "+len);
+        for(int i=0; i<len; i++){
+            if(array[i]=='R') r++;
+            if(array[i]=='G') g++;
+            if(array[i]=='B') b++;
+        }
+        System.out.println("Number of R: "+r);
+        System.out.println("Number of G: "+g);
+        System.out.println("Number of B: "+b);
+        for(int i=0; i<r; i++){
+            array[i]='R';
+        }
+        for(int i=r; i<r+g; i++){
+            array[i]='G';
+        }
+        for(int i=r+g; i<r+g+b; i++){
+            array[i]='B';
+        }
+        System.out.print("Array after sorting: ");
+        System.out.print(array);
+    }
+}

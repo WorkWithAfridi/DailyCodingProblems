@@ -1,0 +1,51 @@
+Question: 
+Implement an autocomplete system. That is, given a query string s and a set of all possible query strings, return all strings in the set that have s as a prefix.
+
+For example, given the query string de and the set of strings [dog, deer, deal], return [deer, deal].
+
+Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries.
+
+Answer: 
+
+package Main;
+
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+
+class Main{
+
+    public static void main(String[] args) {
+        ArrayList<String> set = new ArrayList<>();
+        ArrayList<String> ret = new ArrayList<>();
+        Scanner scan = new Scanner(System.in);
+        String x;
+        System.out.println("Enter 0 to exit loop.");
+        while(true){
+            System.out.print(" Enter Correct word: "); x=scan.nextLine();
+            if(x.equals("0")){
+                break;
+            }
+            else{
+                set.add(x);
+            }
+        }
+        System.out.print("\n Enter Query: "); String query=scan.nextLine();
+        int j=0;
+        for (String word : set) {
+            if (word.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))) {
+                ret.add(word);
+                j++;
+            }
+        }
+        if(j==0){
+            System.out.println("No match found.");
+        }
+        else
+        {
+            System.out.println("Strings containing "+query+ " are: ");
+            System.out.println(ret);
+        }
+    }
+
+}

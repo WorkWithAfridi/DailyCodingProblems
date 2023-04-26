@@ -1,0 +1,61 @@
+Question:
+
+Given a string, find the palindrome that can be made by inserting the fewest number of characters as possible anywhere in the word. 
+If there is more than one palindrome of minimum length that can be made, return the lexicographically earliest one (the first one alphabetically).
+
+For example, given the string "race", you should return "ecarace", 
+since we can add three letters to it (which is the smallest amount to make a palindrome). 
+There are seven other palindromes that can be made from "race" by adding three letters, but "ecarace" comes first alphabetically.
+
+As another example, given the string "google", you should return "elgoogle".
+
+Answer:
+
+package com.dailyCodingProblems;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+
+    public static String makePalindrome(String str){
+        int len = str.length();
+        int integerAtfirst=0;
+        int integerAtsecond=0;
+        int stop=0;
+        String str2=new String();
+        for(int i=0; i<len-1; i++){
+            char c=str.charAt(i);
+            for(int j=i+1; j<len; j++){
+                char x=str.charAt(j);
+                if(c==x){
+                    integerAtfirst=i;
+                    integerAtsecond=j;
+                    stop=1;
+                    break;
+                }
+            }
+            if(stop==1) break;
+        }
+
+        if(stop==1){
+            int lenToAdd=len-integerAtsecond;
+            for(int i=len-1; i>lenToAdd;i--){
+                str2+=str.charAt(i);
+            }
+            str=str2+str;
+            return str;
+        }
+
+        return "No palindrome.";
+    }
+
+    public static void main(String[] args) {
+        String str = "google";
+//        String str = "book";
+        String palindrome = makePalindrome(str);
+        System.out.println("String given: "+str);
+        System.out.println("Created palindrome: "+palindrome);
+    }
+}

@@ -1,0 +1,40 @@
+Question: 
+
+You run an e-commerce website and want to record the last N order ids in a log. Implement a data structure to accomplish this, with the following API:
+
+record(order_id): adds the order_id to the log
+get_last(i): gets the ith last element from the log. i is guaranteed to be smaller than or equal to N.
+You should be as efficient with time and space as possible.
+
+Answer:
+
+package Main;
+
+import java.util.ArrayList;
+
+public class OrderList {
+    ArrayList<Integer> order;
+    OrderList(){
+        order=new ArrayList<>();
+    }
+    void record(int id){
+        order.add(id);
+    }
+    int get_last(int i){
+        return order.get(i);
+    }
+}
+
+
+package Main;
+class Main{
+
+    public static void main(String[] args) {
+        OrderList order = new OrderList();
+        order.record(112233);
+        order.record(112213);
+        order.record(115423);
+        order.record(164323);
+        System.out.println("Order_id at i=2 "+order.get_last(1));
+    }
+}

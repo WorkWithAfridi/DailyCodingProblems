@@ -1,0 +1,58 @@
+Question:
+Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
+
+For example, given the following Node class
+
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+The following test should pass:
+
+node = Node('root', Node('left', Node('left.left')), Node('right'))
+assert deserialize(serialize(node)).left.left.val == 'left.left'
+
+Answer:
+
+    String myBST="\n"; //<- Global variable;
+    void serialize(){
+        File File = new File("myBST.txt");
+        if(File.exists()) File.delete();
+        getPreOrderBST(root);
+        try{
+            File myFile=new File("myBST.txt");
+            if(!myFile.exists()){
+                myFile.createNewFile();
+            }
+            FileWriter writer = new FileWriter("myBST.txt");
+            writer.write(myBST);
+            writer.close();
+        }catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+   void getPreOrderBST(Node root){
+        if(root!=null){
+            myBST=myBST+Integer.toString(root.key)+"\n";
+            getPreOrderBST(root.left);
+            getPreOrderBST(root.right);
+        }
+    }
+
+    void deserialize(){
+        try{
+            File myFile=new File("myBST.txt");
+            Scanner scan = new Scanner(myFile);
+            scan.nextLine();
+            while(scan.hasNextLine()){
+                insert(Integer.parseInt(scan.nextLine()));
+            }
+            scan.close();
+        }catch(IOException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }

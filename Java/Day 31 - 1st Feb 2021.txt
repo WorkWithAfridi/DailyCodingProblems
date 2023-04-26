@@ -1,0 +1,29 @@
+Question: 
+
+The edit distance between two strings refers to the minimum number of character insertions, deletions, 
+and substitutions required to change one string to the other. 
+For example, the edit distance between “kitten” and “sitting” is three: substitute the “k” for “s”, substitute the “e” for “i”, and append a “g”.
+
+Given two strings, compute the edit distance between them.
+
+Answer:
+
+package com.dailyCodingProblems;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String str1="kitten";
+        String str2="sitting";
+        int count=0;
+        int min=Math.min(str1.length(), str2.length());
+        int max=Math.max(str1.length(), str2.length());
+        for(int i=0; i<min;i++){
+            if(str1.charAt(i)!=str2.charAt(i)){
+                count++;
+            }
+        }
+        count+=(max-min);
+        System.out.println("So the edit distance between "+str1+" and "+str2+" is "+count);
+    }
+}

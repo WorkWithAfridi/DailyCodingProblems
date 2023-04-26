@@ -1,0 +1,72 @@
+Question:
+Given a list of integers, write a function that returns the largest sum of non-adjacent numbers. Numbers can be 0 or negative.
+
+For example, [2, 4, 6, 2, 5] should return 13, since we pick 2, 6, and 5. [5, 1, 1, 5] should return 10, since we pick 5 and 5.
+
+Follow-up: Can you do this in O(N) time and constant space?
+
+Answer: 
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> array = new ArrayList<Integer>();
+//        array.add(2);
+//        array.add(4);
+//        array.add(6);
+//        array.add(2);
+//        array.add(5);
+//        array.add(5);
+//        array.add(0);
+//        array.add(0);
+//        array.add(5);
+        array.add(78);
+        array.add(27);
+        array.add(87);
+        array.add(29);
+        array.add(37);
+        array.add(53);
+        ArrayList<Integer> sum=new ArrayList<Integer>();
+        int i,j,max;
+        int tsum=0;
+        int len = array.size();
+        int halflen=2;
+        int x=0;
+        int c=2;
+        while(halflen<=len){
+            for(i=x;i<len;i=i+halflen){
+                tsum=tsum+array.get(i);
+            }
+            sum.add(tsum);
+            tsum=0;
+            for(i=x;i<len;i=i+halflen+1){
+                tsum=tsum+array.get(i);
+            }
+            sum.add(tsum);
+            halflen++;
+            tsum=0;
+        }
+        Integer maxx = Collections.max(sum);
+        System.out.println("Largest sum: "+maxx);
+
+
+        /*
+
+        for(i=0;i<len;i=i+halflen){
+            tsum=tsum+array.get(i);
+        }
+        System.out.println(" ");
+        sum.add(tsum);
+        tsum=0;
+        for(i=1;i<len;i+=halflen){
+            tsum=tsum+array.get(i);
+        }
+        sum.add(tsum);
+        System.out.println(sum);
+        */
+    }
+}

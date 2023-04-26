@@ -1,0 +1,60 @@
+Question:
+
+
+ Daily Coding Problem
+Good morning! Here's your coding interview problem for today.
+
+This problem was asked by Amazon.
+
+Run-length encoding is a fast and simple method of encoding strings. 
+The basic idea is to represent repeated successive characters as a single count and character. 
+For example, the string "AAAABBBCCDAA" would be encoded as "4A3B2C1D2A".
+
+Implement run-length encoding and decoding.
+You can assume the string to be encoded have no digits and consists solely of alphabetic characters. You can assume the string to be decoded is valid.
+
+Answer:
+
+package com.dailyCodingProblems;
+public class Main {
+    public static String encode(String str){
+        String Str2=" ";
+        int i=0; int count=1;
+        char c=str.charAt(0);
+        for(i=0;i<(str.length()-1);i++){
+            char x=str.charAt(i+1);
+            if(c==x){
+                count++;
+            }else{
+                Str2+=String.valueOf(count)+c;
+                count=1;
+                c=x;
+            }
+        }
+        Str2+=String.valueOf(count)+c;
+        return Str2;
+    }
+    public static String decode(String E){
+        int i, j;
+        String Decoded=" ";
+        int decoderC=Integer.parseInt(String.valueOf(E.charAt(1)));
+        for(i=2;i<E.length()-1;i+=2){
+            for(j=0; j<decoderC;j++){
+                Decoded+=E.charAt((i));
+            }
+            decoderC=Integer.parseInt(String.valueOf(E.charAt(i+1)));
+        }
+        for(i=0;i<decoderC;i++){
+            Decoded+=E.charAt(E.length()-1);
+        }
+        return Decoded;
+    }
+    public static void main(String[] args) {
+        String str="AAAABBBCCDAA";
+        String E=encode(str);
+        String D=decode(E);
+        System.out.println("Given String: "+str);
+        System.out.println("Encoded: "+E);
+        System.out.println("Decoded: "+D);
+    }
+}

@@ -1,0 +1,82 @@
+Question:
+
+Given a singly linked list and an integer k, remove the kth last element from the list. k is guaranteed to be smaller than the length of the list.
+
+The list is very long, so making more than one pass is prohibitively expensive.
+
+Do this in constant space and in one pass.
+
+Answer: 
+
+package com.dailyCodingProblems;
+
+public class LinkedList {
+    Node head;
+    static class Node{
+        int data;
+        Node next;
+        Node(int d){this.data=d; next=null;}
+    }
+    public static LinkedList instert(LinkedList list,int data){
+        Node new_node=new Node(data);
+        new_node.next=null;
+        if(list.head==null) {list.head=new_node;}
+        else{
+            Node last = list.head;
+            while(last.next!=null) {last=last.next;}
+            last.next=new_node;
+        }
+        return list;
+    }
+    public static LinkedList removeNode(LinkedList list, int n){
+        Node temp=list.head;
+        LinkedList temp1 = new LinkedList();
+        int count=0;
+        while(temp!=null){
+            count+=1;
+            if(count==n){
+                temp=temp.next;
+                continue;
+            }else{
+                temp1=LinkedList.instert(temp1, temp.data);
+            }
+            temp=temp.next;
+        }
+        return temp1;
+    }
+    public static void showList(LinkedList list){
+        Node temp=list.head;
+        System.out.print("Printing out Linked list:");
+        while (temp!=null){
+            System.out.print(temp.data+"->");
+            temp=temp.next;
+        }
+        System.out.println("\n");
+    }
+}
+
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list=LinkedList.instert(list,1);
+        list=LinkedList.instert(list,2);
+        list=LinkedList.instert(list,3);
+        list=LinkedList.instert(list,4);
+        list=LinkedList.instert(list,5);
+        list=LinkedList.instert(list,6);
+        list=LinkedList.instert(list,7);
+        list=LinkedList.instert(list,8);
+        LinkedList.showList(list);
+        int n=5;
+        list=LinkedList.removeNode(list, n);
+        LinkedList.showList(list);
+    }
+}
+

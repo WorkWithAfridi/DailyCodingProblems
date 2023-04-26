@@ -1,0 +1,92 @@
+Question:
+
+Given two singly linked lists that intersect at some point, find the intersecting node. The lists are non-cyclical.
+
+For example, given A = 3 -> 7 -> 8 -> 10 and B = 99 -> 1 -> 8 -> 10, return the node with value 8.
+
+In this example, assume nodes with the same value are the exact same node objects.
+
+Do this in O(M + N) time (where M and N are the lengths of the lists) and constant space.
+
+
+Answer:
+
+package com.company;
+
+public class LinkedList {
+    Node head;
+    static class Node{
+        int data;
+        Node next;
+        Node(int d){data = d; next=null;}
+    }
+    public static LinkedList insert(LinkedList list, int data){
+        Node new_node = new Node(data);
+        new_node.next=null;
+        if(list.head==null){list.head=new_node;}
+        else{
+            Node last=list.head;
+            while(last.next!=null){
+                last=last.next;
+            }
+            last.next=new_node;
+        }
+        return list;
+    }
+    public static void printList(LinkedList list){
+        Node currNode=list.head;
+        System.out.print("Linked List: ");
+        while(currNode!=null){
+            System.out.print(currNode.data+"->");
+            currNode=currNode.next;
+        }
+        System.out.println(" ");
+    }
+
+    public static void compare(LinkedList list1, LinkedList list2){
+        if(list1==null) {
+            System.out.println("List is empty.");
+            return;
+        }
+        Node node1 = list1.head;
+        Node node2 = list2.head;
+        String str = " ";
+        while(node1.next!=null){
+            node2=list2.head;
+            while(node2!=null){
+                if(node1.data==node2.data && node1.next.data==node2.next.data) System.out.println(node1.data);
+                node2=node2.next;
+            }
+            node1=node1.next;
+        }
+    }
+}
+
+
+
+package com.company;
+
+import static com.company.LinkedList.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        LinkedList A = new LinkedList();
+        A = insert(A,3);
+        A = insert(A,7);
+        A = insert(A,8);
+        A = insert(A,10);
+        A = insert(A,11);
+        printList(A);
+        LinkedList B = new LinkedList();
+        B = insert(B,99);
+        B = insert(B,1);
+        B = insert(B,8);
+        B = insert(B,10);
+        B = insert(B,11);
+        printList(B);
+        compare(A,B);
+
+    }
+}
+

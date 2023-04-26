@@ -1,0 +1,77 @@
+Question: 
+
+Given an unordered list of flights taken by someone, each represented as (origin, destination) pairs, and a starting airport, compute the person's itinerary. If no such itinerary exists, return null. If there are multiple possible itineraries, return the lexicographically smallest one. All flights must be used in the itinerary.
+
+For example, given the list of flights [('SFO', 'HKO'), ('YYZ', 'SFO'), ('YUL', 'YYZ'), ('HKO', 'ORD')] and starting airport 'YUL', you should return the list ['YUL', 'YYZ', 'SFO', 'HKO', 'ORD'].
+
+Given the list of flights [('SFO', 'COM'), ('COM', 'YYZ')] and starting airport 'COM', you should return null.
+
+Given the list of flights [('A', 'B'), ('A', 'C'), ('B', 'C'), ('C', 'A')] and starting airport 'A', you should return the list ['A', 'B', 'C', 'A', 'C'] even though ['A', 'C', 'A', 'B', 'C'] is also a valid itinerary. However, the first one is lexicographically smaller.
+
+
+Answer:
+
+
+package Main;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+//        BinarySearchTree b=new BinarySearchTree();
+//        b.insert(3);
+//        b.insert(8);
+//        b.insert(1);
+//        b.insert(4);
+//        b.insert(6);
+//        b.insert(2);
+//        b.insert(10);
+//        b.insert(9);
+//        b.insert(20);
+//        b.insert(25);
+//        b.insert(15);
+//        b.insert(16);
+//        System.out.println("Displaying tree: "+b.display());
+        HashMap<String, String> flights = new HashMap<>();
+        //set1
+        flights.put("SFO","HKO");
+        flights.put("YYZ","SFO");
+        flights.put("YUL","YYZ");
+        flights.put("HKO","ORD");
+        //set2
+//        flights.put("SFO","COM");
+//        flights.put("COM","YYZ");
+        //set3
+//        flights.put("A","B");
+//        flights.put("A","C");
+//        flights.put("B","C");
+//        flights.put("C","A");
+        Scanner scan = new Scanner(System.in);
+        System.out.print("ENTER STARTING POINT: ");
+        String SA = scan.nextLine();
+        ArrayList<String> list = new ArrayList<>();
+        list.add(SA);
+        int count=0; String start = new String(); String end="Hi";
+        start=SA;
+        while(true){
+            try{
+                end=flights.get(start);
+                if(end.equals("null")) break;
+                start=end;
+                System.out.println("Start: "+start);
+                System.out.println("End: "+end);
+                list.add(end);
+            }catch (Exception e){
+                break;
+            }
+        }
+        if(list.size()<=2){
+            System.out.println("[null]");
+            return;
+        }
+        System.out.println(list);
+    }
+}

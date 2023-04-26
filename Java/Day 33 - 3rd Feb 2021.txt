@@ -1,0 +1,61 @@
+Question:
+
+Compute the running median of a sequence of numbers. 
+That is, given a stream of numbers, print out the median of the list so far on each new element.
+
+Recall that the median of an even-numbered list is the average of the two middle numbers.
+
+For example, given the sequence [2, 1, 5, 7, 2, 0, 5], your algorithm should print out:
+
+2
+1.5
+2
+3.5
+2
+2
+2
+
+Answer:
+
+package com.dailyCodingProblems;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+    public static double computerMedian(ArrayList<Integer> array){
+        Collections.sort(array);
+        if(array.size()==1){
+            return array.get(0);
+        }
+        int len= array.size();
+        double middleNum=0;
+        if(len%2==0){
+            middleNum=len/2.00;
+            int m= (int) (middleNum-1);
+            int n= (int) (middleNum);
+            int sum = array.get(n)+ array.get(m);
+            double avg=sum/2.00;
+            middleNum=avg;
+        }else{
+            middleNum=(int)Math.ceil(len/2.00);
+            middleNum= array.get(((int)middleNum-1));;
+        }
+        return middleNum;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> array = new ArrayList<>();
+        String input=null;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter x to exit loop.");
+        while(true){
+            System.out.print("Enter integer: "); input=scan.nextLine();
+            if(input.equals("x")) break;
+            array.add(Integer.parseInt(input));
+            double median = computerMedian(array);
+            System.out.println("Array: "+array+", Median: "+median);
+        }
+    }
+}

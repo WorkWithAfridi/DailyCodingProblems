@@ -1,0 +1,41 @@
+Question: 
+Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, count the number of ways it can be decoded.
+
+For example, the message '111' would give 3, since it could be decoded as 'aaa', 'ka', and 'ak'.
+
+You can assume that the messages are decodable. For example, '001' is not allowed.
+
+
+Answer: 
+	static int countDecode(char[] digits, int n){
+        if(n==0 || n==1){
+            return 1;
+        }
+        if(digits[0]=='0'){
+            return 0;
+        }
+        int count =0;
+        if(digits[n-1]>'0'){
+            count=countDecode(digits,n-1);
+        }
+        if(digits[n-2]=='1' || (digits[n-2]==2 && digits[n-1]<'7')) count+=countDecode(digits,n-2);
+        return count;
+
+    }
+
+    public static void main(String[] args) {
+
+        HashMap<Integer, Character> map = new HashMap<Integer, Character>();
+        int j=1; char i;
+        for(i='a'; i<='z'; i++){  map.put(j,i); j++;  }
+        Iterator<Integer> Key = map.keySet().iterator(); Iterator<Character> Map = map.values().iterator();
+        while(Key.hasNext()){ System.out.println(Key.next()+", "+Map.next()); }
+
+        String num; Scanner scan = new Scanner(System.in);
+        System.out.print("Enter coded message(number): "); num=Integer.toString(scan.nextInt());
+        int number=Integer.parseInt(num);
+        //char digits[]={'1','2','3','4'};
+        char[] digits = (""+number).toCharArray();
+        int digitLength= digits.length;
+        System.out.println("Decoding ways: "+countDecode(digits,digitLength));
+    }

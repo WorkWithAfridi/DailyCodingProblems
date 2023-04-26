@@ -1,0 +1,107 @@
+Question:
+
+Given the root to a binary search tree, find the second largest node in the tree.
+
+Answer:
+
+package com.dailyCodingProblems;
+
+public class BinarySearchTree {
+    class Node{
+        int key;
+        Node left, right;
+        public Node(int data){
+            key=data;
+            left=right=null;
+        }
+    }
+    Node root;
+    BinarySearchTree(){
+        root=null;
+    }
+    Node delete_Recursive(Node root, int key){
+        if(root==null) return root;
+        if(key<root.key) root.left=delete_Recursive(root.left, key);
+        else if(key>root.key) root.right=delete_Recursive(root.right,key);
+        else{
+            if(root.left==null) return root.right;
+            else if(root.right==null) return root.left;
+            root.key=minValue(root.right);
+            root.right=delete_Recursive(root.right, root.key);
+        }
+        return root;
+    }
+    void deleteKey(int key){
+        root=delete_Recursive(root, key);
+    }
+    int minValue(Node root){
+        int minVal = root.key;
+        while(root.left!=null){
+            minVal=root.left.key;
+            root=root.left;
+        }
+        return minVal;
+    }
+    Node insert_Recursive(Node root, int key){
+        if(root==null){
+            root= new Node(key);
+            return root;
+        }
+        if(key<root.key) root.left=insert_Recursive(root.left, key);
+        else if(key>root.key) root.right=insert_Recursive(root.right, key);
+        return root;
+    }
+    void insert(int key){
+        root=insert_Recursive(root, key);
+    }
+    void inorder(){
+        inorder_Recursive(root);
+    }
+    void inorder_Recursive(Node root){
+        if(root!=null){
+            inorder_Recursive(root.left);
+            System.out.println(" "+root.key);
+            inorder_Recursive(root.right);
+        }
+    }
+    Node search_Recursive(Node root, int key){
+        if(root==null || root.key==key) return root;
+        if(root.key>key) return search_Recursive(root.left, key);
+        return search_Recursive(root.right, key);
+    }
+    boolean search(int key){
+        root=search_Recursive(root,key);
+        if(root!=null) return true;
+        else return false;
+    }
+    int SecondMin_Recursive(Node root){
+        Node temp =root;
+        while(temp.left.left!=null){
+            temp=temp.left;
+        }
+        return temp.key;
+    }
+    int findSecondMin(){
+        return SecondMin_Recursive(root);
+    }
+}
+--------------------------------------------------------------
+package com.dailyCodingProblems;
+public class Main {
+
+    public static void main(String[] args) {
+        BinarySearchTree bst = new BinarySearchTree();
+
+        bst.insert(45);
+        bst.insert(10);
+        bst.insert(7);
+        bst.insert(12);
+        bst.insert(90);
+        bst.insert(50);
+
+        System.out.println("The BST Created with input data(Left-root-right):");
+        bst.inorder();
+        System.out.println("-----------------");
+        System.out.println("Second Min Value in the tree is: "+bst.findSecondMin());
+    }
+}

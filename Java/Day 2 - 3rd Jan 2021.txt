@@ -1,0 +1,31 @@
+Question:
+Given an array of integers, return a new array such that each element at index i of the new array is the product of all the numbers in the original array except the one at i.
+For example, if our input was [1, 2, 3, 4, 5], the expected output would be [120, 60, 40, 30, 24]. If our input was [3, 2, 1], the expected output would be [2, 3, 6].
+Follow-up: what if you can't use division?
+
+
+Answer: 
+
+        int i,j,size;
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter the number of #s in the array: ");
+        size = scan.nextInt();
+        int Array[]=new int[size];
+        int Array2[]=new int[size];
+        for(i=0;i<size;i++){
+            System.out.print("Enter number: "); Array[i]=scan.nextInt();
+        }
+        for(i=0;i<size;i++){
+            Array2[i]=1;
+            for(j=0;j<size;j++){
+                if(i==j){
+                    continue;
+                }
+                else{
+                    Array2[i]=Array2[i]*Array[j];
+                }
+            }
+        }
+        for(i=0;i<size;i++){
+            System.out.print(Array2[i]+", ");
+        }

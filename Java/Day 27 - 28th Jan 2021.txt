@@ -1,0 +1,72 @@
+Question: 
+
+Given a string of round, curly, and square open and closing brackets, return whether the brackets are balanced (well-formed).
+
+For example, given the string "([])[]({})", you should return true.
+
+Given the string "([)]" or "((()", you should return false.
+
+Answer:
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+
+    public static boolean check(String str){
+        int first=0;
+        int second=0;
+        int third=0;
+        for(char c: str.toCharArray()){
+            //first
+            int i=Character.compare(c,'(');
+            int counter=Character.compare(c,')');
+            if(i==0 || i==1 || i==-1){
+                if(i==0 && counter==-1){
+                    first++;
+                    continue;
+                }
+                if(i==1 && counter==0){
+                    first--;
+                    continue;
+                }
+            }
+            //second
+            i=Character.compare(c,'[');
+            counter=Character.compare(c,']');
+            if(i==0 || i==-2 || i==2){
+                if(i==0 && counter==-2){
+                    second++; continue;
+                }
+                if(i==2 && counter==0){
+                    second--; continue;
+                }
+            }
+            //third
+            i=Character.compare(c,'{');
+            counter=Character.compare(c,'}');
+            if(i==0 || i==-2 || i==2){
+                if(i==0 && counter==-2){
+                    third++; continue;
+                }
+                if(i==2 && counter==0){
+                    third--; continue;
+                }
+            }
+        }
+        if(first==0 && second==0 && third==0) return true;
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String str="([])[]({})";
+        System.out.println("Is the String "+str+" balanced: "+check(str));
+        str="(([{]}[))";
+        System.out.println("Is the String "+str+" balanced: "+check(str));
+        str="((()";
+        System.out.println("Is the String "+str+" balanced: "+check(str));
+    }
+}
+

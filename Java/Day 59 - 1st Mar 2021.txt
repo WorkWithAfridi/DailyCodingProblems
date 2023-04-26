@@ -1,0 +1,52 @@
+Question:
+
+Implement a file syncing algorithm for two computers over a low-bandwidth network. What if we know the files in the two computers are mostly the same?
+
+Answer:
+
+package Main;
+
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static ArrayList<String> FilesInMainPc = new ArrayList<>();
+    public static ArrayList<String> FilesInBackUpPc = new ArrayList<>();
+
+    public static void sync(){
+        for(String FileName : FilesInMainPc){
+            if(!FilesInBackUpPc.contains(FileName)){
+                FilesInBackUpPc.add(FileName);
+            }
+        }
+    }
+
+    public static void showFileNames(){
+        System.out.println("\n");
+        System.out.println("Files in Main PC:");
+        for(String FileName : FilesInMainPc){
+            System.out.println(FileName);
+        }
+        System.out.println("Files in Backup PC:");
+        for(String FileName : FilesInBackUpPc){
+            System.out.println(FileName);
+        }
+    }
+
+    public static void main(String[] args){
+        FilesInMainPc.add("Music");
+        FilesInMainPc.add("Photos");
+        FilesInMainPc.add("Movies");
+        FilesInMainPc.add("Games");
+        FilesInMainPc.add("Project Files");
+
+        FilesInBackUpPc.add("Project Files");
+        FilesInBackUpPc.add("Music");
+        FilesInBackUpPc.add("Movies");
+        FilesInBackUpPc.add("Games");
+        showFileNames();
+        sync();
+        showFileNames();
+    }
+}

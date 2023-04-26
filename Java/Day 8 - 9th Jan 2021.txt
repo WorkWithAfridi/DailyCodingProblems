@@ -1,0 +1,49 @@
+Question: 
+A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
+
+Given the root to a binary tree, count the number of unival subtrees.
+
+For example, the following tree has 5 unival subtrees:
+
+   0
+  / \
+ 1   0
+    / \
+   1   0
+  / \
+ 1   1
+
+Answer:
+
+Universal tree = A tree where root.value=root.left.value=root.right.value;
+
+ 
+public class Main {
+
+    static class UnivalTree{
+        public int val;
+        public UnivalTree left;
+        public UnivalTree right;
+        public UnivalTree(int val, UnivalTree left, UnivalTree right){
+            this.val=val;
+            this.left=left;
+            this.right=right;
+        }
+    }
+    public static int countUniversalSubtree(UnivalTree tree){
+        int count=0;
+        if(tree.left==null && tree.right==null) return 1;
+        if(tree.left.val==tree.right.val) count+=1;
+        if(tree.left!=null) count+=countUniversalSubtree(tree.left);
+        if(tree.right!=null) count+=countUniversalSubtree(tree.right);
+        return count;
+    }
+    public static void main(String[] args) {
+        UnivalTree tree =
+                new UnivalTree(0,
+                        new UnivalTree(1, null, null), new UnivalTree(0,
+                        new UnivalTree(1, new UnivalTree(1, null, null),
+                                new UnivalTree(1, null, null)), new UnivalTree(0, null, null)));
+        System.out.println(countUniversalSubtree(tree));
+    }
+}

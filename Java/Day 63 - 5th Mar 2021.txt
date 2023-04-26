@@ -1,0 +1,92 @@
+Question:
+
+Given a 2D matrix of characters and a target word, write a function that returns whether the word can be found in the matrix by going left-to-right, or up-to-down.
+
+For example, given the following matrix:
+
+[['F', 'A', 'C', 'I'],
+ ['O', 'B', 'Q', 'P'],
+ ['A', 'N', 'O', 'B'],
+ ['M', 'A', 'S', 'S']]
+and the target word 'FOAM', you should return true, since it's the leftmost column. Similarly, given the target word 'MASS', you should return true, since it's the last row.
+
+
+
+
+Answer:
+
+package Main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args) throws IOException {
+        char [][] array = new char[4][4];
+        int i,j,row,col;
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter matrix dimention (Row): ");
+        row=scan.nextInt();
+        System.out.print("Enter matrix dimention (Col): ");
+        col=scan.nextInt();
+        System.out.println(" ");
+        for(i=0; i<row; i++){
+            for(j=0; j<col; j++){
+                System.out.print("Enter Char #"+i+j+": ");
+                array[i][j]= scan.next().charAt(0);
+            }
+        }
+        System.out.println("The Matrix is: ");
+        for(char[] x : array){
+            System.out.println(x);
+        }
+        scan.nextLine();
+        System.out.print("Enter target word: ");
+        String targetWord = scan.nextLine().toLowerCase();
+        System.out.println("Target Word is: "+targetWord);
+        boolean matchFound = false;
+        String [] verticalArray=new String[col];
+        System.out.println("Row Scanning in progress...");
+        for(i=0; i<4; i++){
+            if(matchFound){
+                break;
+            }
+            String word = new String();
+            for(j=0;j<4; j++){
+                word+=array[i][j];
+                if(verticalArray[j]==null){
+                    verticalArray[j]=String.valueOf(array[i][j]);
+                }else{
+                    verticalArray[j]+=array[i][j];
+                }
+            }
+            System.out.println("word from row"+i+": "+word);
+            if(word.equals(targetWord)){
+                System.out.println("Match found.");
+                matchFound=true;
+                break;
+            }
+        }
+        if(!matchFound){
+            System.out.println("Column Scanning in progress...");
+            System.out.println("Words formed from cols: ");
+            i=0;
+            for(String x: verticalArray){
+                System.out.println("Word from col"+i+":"+x);
+                i++;
+                if(targetWord.equals(x)){
+                    System.out.println("Match Found.");
+                    matchFound=true;
+                    break;
+                }
+            }
+        }
+        if(!matchFound){
+            System.out.println("No Match Found.");
+        }
+
+    }
+}

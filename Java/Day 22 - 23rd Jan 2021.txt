@@ -1,0 +1,89 @@
+Question:
+
+Given a dictionary of words and a string made up of those words (no spaces), return the original sentence in a list. 
+If there is more than one possible reconstruction, return any of them. If there is no possible reconstruction, then return null.
+
+For example, given the set of words 'quick', 'brown', 'the', 'fox', and the string "thequickbrownfox", you should return ['the', 'quick', 'brown', 'fox'].
+
+Given the set of words 'bed', 'bath', 'bedbath', 'and', 'beyond', and the string "bedbathandbeyond", 
+return either ['bed', 'bath', 'and', 'beyond] or ['bedbath', 'and', 'beyond'].
+
+Answer:
+
+Answer involves dynamic programming.
+
+Partial answer can be generated from the following spript.
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Main {
+
+    private static Set<String> dictionary = new HashSet<>();
+
+    public static boolean wordBreak(String word){
+        int size = word.length();
+        if(size==0) return true;
+        for(int i=1; i<=size; i++){
+            if(dictionary.contains(word.substring(0,i)) && wordBreak(word.substring(i,size))) return true;
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        String temp_dictionary[]={"mobile","samsung","sam","sung","man","mango","icecream","and","go","i","like","ice","cream"};
+        for(String temp: temp_dictionary){
+            dictionary.add(temp);
+        }
+        System.out.println(wordBreak("ilikesamsung"));
+        System.out.println(wordBreak("iiiiiii"));
+        System.out.println(wordBreak(""));
+        System.out.println(wordBreak("ilikelikeimangoiii"));
+        System.out.println(wordBreak("samsungandmango"));
+        System.out.println(wordBreak("samsungandmangok"));
+    }
+}
+
+--------------------------------------------------------
+Another way of solving the problem can be:
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //String str = "thequickbrownfox";
+        String str= "bedbathandbeyond";
+        String dictionary[]= {"bed", "bath", "bedbath", "and", "beyond"};
+        //String dictionary[]={"quick","brown","the","fox"};
+        HashMap<Integer,String> hashmap = new HashMap<>();
+        for(String item: dictionary){
+            int index = str.indexOf(item);
+            if(index<0){
+                continue;
+            }
+            else{
+                hashmap.put(index,item);
+                //System.out.println(index+" -> "+item);
+            }
+        }
+        System.out.println(hashmap.values());
+        Set set = hashmap.entrySet();
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()){
+            Map.Entry me = (Map.Entry)iterator.next();
+            System.out.println(me.getKey()+" : "+me.getValue());
+        }
+
+        //Map<Integer,String> map = new TreeMap<>(hashmap);
+
+        //int n = str.indexOf("rabbit");
+        //System.out.println(n);
+    }
+}

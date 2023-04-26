@@ -1,0 +1,54 @@
+Question:
+
+Given an array of time intervals (start, end) for classroom lectures (possibly overlapping), find the minimum number of rooms required.
+
+For example, given [(30, 75), (0, 50), (60, 150)], you should return 2.
+
+Answer:
+
+
+package com.dailyCodingProblems;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int numOfClasses=0;
+        int ClassOverlap=0;
+        int classNum=1;
+        Scanner scan=new Scanner(System.in);
+        try{
+            System.out.print("Number of Classes: "); numOfClasses=scan.nextInt()*2;
+            int array[] = new int[numOfClasses]; int i=0; int j=0; int room=0;
+            for(i=0; i<numOfClasses; i+=2){
+                System.out.print("Enter Starting time for Class "+classNum+": "); array[i]=scan.nextInt();
+                System.out.print("Enter Ending time for Class "+classNum+": "); array[i+1]=scan.nextInt();
+                classNum++;
+            }
+            for(i=0; i<numOfClasses-4;i+=2){
+                int startTime=array[i];
+                int endTime=array[i+1];
+                //System.out.println("Starttime: "+startTime);
+                //System.out.println("Endtime: "+endTime);
+                for(j=i+2; j<numOfClasses;j+=2){
+                    int ST=array[j];
+                    int ET=array[j+1];
+                    //System.out.println("ST: "+ST);
+                    //System.out.println("ET: "+ET);
+                    if(startTime==ST && endTime==ET){
+                        continue;
+                    }else{
+                        if((ST>startTime && ST<endTime) || (ET>startTime && ET<endTime) ){
+                            room++;
+                        }
+                    }
+                }
+            }
+            System.out.println("Number of Rooms needed: "+room);
+        }catch(Exception e){
+            System.out.println("Error occurred while inputting data.");
+        }
+    }
+}

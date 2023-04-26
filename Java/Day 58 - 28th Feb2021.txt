@@ -1,0 +1,60 @@
+Question:
+
+An sorted array of integers was rotated an unknown number of times.
+
+Given such an array, find the index of the element in the array in faster than linear time. If the element doesn't exist in the array, return null.
+
+For example, given the array [13, 18, 25, 2, 8, 10] and the element 8, return 4 (the index of 8 in the array).
+
+You can assume all the integers in the array are unique.
+
+Answer:
+
+package Main;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+
+    public static int FindIndexInLinearTime(ArrayList array, int value){
+        int i=0;
+        for(Object obj : array){
+            if(obj.equals(value)){
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
+    public static void main(String[] args){
+        Random rand = new Random();
+        ArrayList<Integer> array = new ArrayList<>();
+        for(int i=0; i<10; i++){
+            array.add(rand.nextInt(100));
+        }
+        System.out.println("Random generated Array: "+array);
+        Collections.sort(array);
+        System.out.println("Sorted Array: "+array);
+        Collections.shuffle(array);
+        Collections.shuffle(array);
+        System.out.println("Shuffled Array: "+array);
+        Scanner scan = new Scanner(System.in);
+        Boolean op = true;
+        int value = 0;
+        while(op){
+            System.out.print("Enter a random Integer to get its index in the shuffled Array: ");
+            value = scan.nextInt();
+            if(array.contains(value)){
+               op=false;
+            }else{
+                System.out.println("Array does not contain the inputted element.");
+            }
+        }
+        System.out.println("Index of element: "+value+" in the array is: "+FindIndexInLinearTime(array, value));
+    }
+}

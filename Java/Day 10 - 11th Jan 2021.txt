@@ -1,0 +1,36 @@
+Question: 
+Implement a job scheduler which takes in a function f and an integer n, and calls f after n milliseconds.
+
+Answer:
+package Main;
+
+import java.sql.Time;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+class Main{
+    public static void runCode(){
+        System.out.println("Code has been initiated.");
+    }
+
+    public static void main(String[] args) {
+        int time=0;
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Enter wait time in miliseconds: ");
+        try{
+            time = scan.nextInt();
+        }catch(Exception e){
+            System.out.println("Error occurred.");
+            e.printStackTrace();
+        }
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                runCode();
+            }
+        }, time);
+
+    }
+}

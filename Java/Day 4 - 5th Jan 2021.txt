@@ -1,0 +1,18 @@
+Question:
+Given an array of integers, find the first missing positive integer in linear time and constant space. In other words,
+find the lowest positive integer that does not exist in the array. The array can contain duplicates and negative numbers as well.
+
+For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should give 3.
+
+You can modify the input array in-place.
+
+Answer: 
+	int[] num = {1,2,3,4,5};
+        Arrays.sort(num);
+        int min=100000,i;
+        for(i=0;i<num.length;i++){
+            if(min>num[i] && num[i]>=0) min=num[i];
+            if(num[i]<0) min=1;
+            if(min==num[i]) min++;
+        }
+        System.out.println(min);

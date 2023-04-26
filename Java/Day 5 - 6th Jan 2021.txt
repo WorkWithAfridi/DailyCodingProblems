@@ -1,0 +1,45 @@
+Question:
+
+cons(a, b) constructs a pair, and car(pair) and cdr(pair) returns the first and last element of that pair.
+For example, car(cons(3, 4)) returns 3, and cdr(cons(3, 4)) returns 4.
+Given this implementation of cons:
+def cons(a, b):
+    def pair(f):
+        return f(a, b)
+    return pair
+Implement car and cdr.
+
+Answer:
+
+package Main;
+//Since java doesnot have the pair keyword, I had to make a container and make it act like a pair
+
+public class Main {
+    private static class Pair{
+        private int x;
+        private int y;
+        Pair(int x, int y){
+            this.x=x; this.y=y;
+        }
+        public void set(int a, int b){
+            this.x=a; this.y=b;
+        }
+        public int getx(){
+            return x;
+        }
+        public int gety(){
+            return y;
+        }
+    }
+    private static int car(Pair pair){
+        return pair.getx();
+    }
+    private static int cdr(Pair pair){
+        return pair.gety();
+    }
+    public static void main(String[] args) {
+        Pair pair = new Pair(3,4);
+        System.out.println("car(pair): "+car(pair));
+        System.out.println("cdr(pair): "+cdr(pair));
+    }
+}

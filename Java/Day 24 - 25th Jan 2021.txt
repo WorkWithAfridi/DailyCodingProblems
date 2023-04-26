@@ -1,0 +1,61 @@
+Question:
+
+Implement locking in a binary tree. A binary tree node can be locked or unlocked only if all of its descendants or ancestors are not locked.
+
+Design a binary tree node class with the following methods:
+
+is_locked, which returns whether the node is locked
+lock, which attempts to lock the node. If it cannot be locked, then it should return false. Otherwise, it should lock it and return true.
+unlock, which unlocks the node. If it cannot be unlocked, then it should return false. Otherwise, it should unlock it and return true.
+You may augment the node to add parent pointers or any other property you would like. You may assume the class is used in a single-threaded program, 
+so there is no need for actual locks or mutexes. Each method should run in O(h), where h is the height of the tree.
+
+Answer:
+
+package com.dailyCodingProblems;
+
+public class BinaryTreeWithLock {
+    private class BinaryTreeNode{
+        boolean locked;
+        BinaryTreeNode parent;
+        BinaryTreeNode leftChild;
+        BinaryTreeNode rightChild;
+    }
+    public boolean is_locked(BinaryTreeNode node){
+        return node.locked;
+    }
+    public boolean lock(BinaryTreeNode node){
+        if(!checkLockPrecondition(node)){
+            return false;
+        }
+        node.locked=true;
+        return true;
+    }
+    public boolean unlock(BinaryTreeNode node){
+        if(!checkLockPrecondition(node)){
+            return false;
+        }
+        node.locked=false;
+        return true;
+    }
+    private boolean checkLockPrecondition(BinaryTreeNode node){
+        boolean left=checkLockPrecondition(node.leftChild);
+        if(!left) return false;
+        boolean right = checkLockPrecondition(node.rightChild);
+        if(!right) return false;
+        BinaryTreeNode parentNode=node.parent;
+        while(parentNode!=null){
+            if(parentNode.locked) return false;
+            parentNode=parentNode.parent;
+        }
+        return true;
+    }
+    private boolean checkChildLockPrecondition(BinaryTreeNode node){
+        if(node==null) return true;
+        if(node.locked) return false;
+        boolean left=checkChildLockPrecondition(node.leftChild);
+        if(!left) return  false;
+        boolean right = checkChildLockPrecondition(node.rightChild);
+        return right;
+    }
+}
