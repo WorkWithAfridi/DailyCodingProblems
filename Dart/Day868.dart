@@ -6,6 +6,8 @@
 void main(List<String> args) {
   String myStr = "carrace";
   print("Can the $myStr be reformatted to a palindrome : ${checkIfPalindromeIsPossible(myStr: myStr)}");
+  myStr = "daily";
+  print("Can the $myStr be reformatted to a palindrome : ${checkIfPalindromeIsPossible(myStr: myStr)}");
 }
 
 bool checkIfPalindromeIsPossible({required String myStr}) {
@@ -30,12 +32,12 @@ bool checkIfPalindromeIsPossible({required String myStr}) {
     }
   });
 
+  print(letterCount);
+
   if (strLen % 2 == 0 && oddCount == 0) {
     return true;
-  } else if (strLen % 2 == 1 && oddCount % 2 == 1) {
+  } else if (strLen % 2 == 1 && oddCount % 2 == 1 && evenCount != 0) {
     return true;
   }
-
-  print(letterCount);
   return false;
 }
