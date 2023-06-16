@@ -17,11 +17,7 @@ bool checkIfPalindromeIsPossible({required String myStr}) {
   Map letterCount = {};
 
   for (String x in myStr.split("").toList()) {
-    if (letterCount.containsKey(x)) {
-      letterCount[x] = letterCount[x] + 1;
-    } else {
-      letterCount[x] = 1;
-    }
+    letterCount[x] = (letterCount[x] ?? 0) + 1;
   }
 
   letterCount.forEach((key, value) {
@@ -33,11 +29,5 @@ bool checkIfPalindromeIsPossible({required String myStr}) {
   });
 
   print(letterCount);
-
-  if (strLen % 2 == 0 && oddCount == 0) {
-    return true;
-  } else if (strLen % 2 == 1 && oddCount % 2 == 1 && evenCount != 0) {
-    return true;
-  }
-  return false;
+  return oddCount <= 1;
 }
