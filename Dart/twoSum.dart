@@ -17,7 +17,7 @@ List<int> twoSum(List<int> nums, int target) {
       List<int> ans = [checkedValues[requiredNum]!, currentIndex];
       return ans;
     } else {
-      checkedValues[nums[currentIndex]] = currentIndex;
+      checkedValues[currentValue] = currentIndex;
     }
   }
   return [];
