@@ -30,4 +30,6 @@ bool checkIfPalindromeIsPossible({required String myStr}) {
 
   print(letterCount);
   return oddCount <= 1;
+
+  ///Palindrome can only have <=1 odd count chars
 }
