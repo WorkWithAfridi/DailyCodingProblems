@@ -12,14 +12,7 @@
 
 // Write a program that returns the weight of the maximum weight path.
 
-import 'dart:math';
-
-int generateRandomInt() {
-  int min = 0;
-  int max = 100;
-  final random = Random();
-  return min + random.nextInt(max - min + 1);
-}
+import 'utils.dart';
 
 Map populateTriangleMap(Map myMap) {
   for (int i = 0; i < 5; i++) {
