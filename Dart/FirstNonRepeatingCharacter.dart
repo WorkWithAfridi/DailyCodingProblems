@@ -25,6 +25,10 @@ void main(List<String> args) {
         (x, y) => x < y ? x : y,
       ); // Compares each entry and returns the smallest one
 
+  if (minListLenth > 1) {
+    print('No non repeating charaters....');
+  }
+
   List<String> keysWithMinLength = repeatNum.keys
       .where(
         (element) => repeatNum[element]!.length == minListLenth,
