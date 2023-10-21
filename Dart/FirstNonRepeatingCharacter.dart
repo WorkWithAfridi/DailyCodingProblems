@@ -1,5 +1,5 @@
 // Algo Expert
-// Given a String, find the index of the Non Repeating Character
+// Given a String, find the index of the Non Repeating Character but if there are repeating numbers, find the first least repeating integer.
 
 void main(List<String> args) {
   String str = "abcdcaf";
