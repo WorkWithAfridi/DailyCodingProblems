@@ -69,6 +69,7 @@ String lookAndSaySequence(int n) {
   currentTerm.write('$count${prevTerm[prevTerm.length - 1]}');
   return currentTerm.toString();
 }
+
 // This solution directly calculates the Nth term of the "look and say" sequence without repeatedly calling the function for each term. It uses a recursive approach and builds the sequence iteratively, improving efficiency and readability.
 
 
