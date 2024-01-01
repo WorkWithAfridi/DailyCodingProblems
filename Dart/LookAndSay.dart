@@ -14,7 +14,7 @@
 // Given an integer N, print the Nth term of this sequence.
 
 void main(List<String> args) {
-  int x = 5;
+  int x = 1;
   String term = "1";
   for (int i = 1; i < x; i++) {
     term = getLookAndSayString(term);
@@ -45,3 +45,33 @@ String getLookAndSayString(String term) {
   }
   return lookAndSayString;
 }
+
+// A more optimized solution
+
+String lookAndSaySequence(int n) {
+  if (n == 1) {
+    return '1';
+  }
+
+  String prevTerm = lookAndSaySequence(n - 1);
+  StringBuffer currentTerm = StringBuffer();
+  int count = 1;
+
+  for (int i = 0; i < prevTerm.length - 1; i++) {
+    if (prevTerm[i] == prevTerm[i + 1]) {
+      count++;
+    } else {
+      currentTerm.write('$count${prevTerm[i]}');
+      count = 1;
+    }
+  }
+
+  currentTerm.write('$count${prevTerm[prevTerm.length - 1]}');
+  return currentTerm.toString();
+}
+// This solution directly calculates the Nth term of the "look and say" sequence without repeatedly calling the function for each term. It uses a recursive approach and builds the sequence iteratively, improving efficiency and readability.
+
+
+
+
+
