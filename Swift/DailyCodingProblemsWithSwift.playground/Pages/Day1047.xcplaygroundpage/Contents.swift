@@ -41,21 +41,25 @@ class TimedMap{
         if timeMap[key] == nil {
             timeMap[key] = [TimedMapVal(time: time, value: value)]
         } else {
-            timeMap[key]?.append(TimedMapVal(time: time, value: value))
+            timeMap[key]?.append(TimedMapVal(time: time, value: value) )
         }
         
     }
     
     func getVal(key: Int, time: Int) -> Int? {
         print("Finding value at time \(time) and Key: \(key)")
+        
         var returnVal: Int? = nil
         var returnValTime: Int? = nil
         var valueAndTimeList: [TimedMapVal]? = timeMap[key]
+        
         if let safeValueAndTimeList = valueAndTimeList {
             safeValueAndTimeList.forEach { element in
                 print("For key: \(key) - Value is \(element.value) and time is \(element.time)")
+                
                 var storedVal = element.value
                 var storedTime = element.time
+                
                 if time >= storedTime {
                     returnVal = storedVal
                 }
