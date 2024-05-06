@@ -24,6 +24,5 @@ int? findSingle(List<int> myList) {
       return num;
     }
   }
-
   return null;
 }
