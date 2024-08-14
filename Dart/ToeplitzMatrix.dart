@@ -12,8 +12,6 @@
 // 7 4 5 1 2
 // Write a program to determine whether a given input is a Toeplitz matrix.
 
-// Further explain this problem, without solving it
-
 isToeplitzMatrix(List<List<int>> givenMatrix, int rowLen, int colLen) {
   for (int currentListIndex = 0; currentListIndex < colLen - 1; currentListIndex++) {
     List<int> currentList = givenMatrix[currentListIndex];
